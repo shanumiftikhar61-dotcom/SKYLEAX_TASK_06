@@ -26,7 +26,17 @@ A beginner-friendly task manager built with Node.js, Express, and plain HTML, CS
 
 The server creates `data/tasks.json` on first start if it does not exist. It keeps this file when the server restarts. The data file is excluded from Git so personal tasks are not accidentally committed.
 
-For automatic restarts while developing, use `npm run dev`. Set the `PORT` environment variable to use a different port. Set `TASKS_FILE` if you want the server to store its JSON data in a different location.
+For automatic restarts while developing, use `npm run dev`. The server listens on `process.env.PORT` when set, falls back to port `3000` locally, and binds to `0.0.0.0` so hosting platforms such as Render can reach it. Set `TASKS_FILE` if you want the server to store its JSON data in a different location. By default, that file is `data/tasks.json` inside the project.
+
+## Deploying to Render
+
+Create a **Web Service** for this repository in Render. Use the project root as the root directory, `npm install` as the build command, and `npm start` as the start command. The start script launches the same Express service that serves both the web frontend and the `/api/tasks` endpoints; no separate frontend service or API URL configuration is needed.
+
+### JSON storage and free hosting
+
+The default JSON store lives at `data/tasks.json` inside the deployed project. Render's free web services have an ephemeral filesystem: changes to this file can be lost when the service restarts, redeploys, or otherwise replaces its instance. This JSON-file storage is therefore suitable for a demonstration, but it is **not durable storage for production or important tasks**. The application can recreate a missing JSON file on startup, but cannot recover tasks that the platform has discarded.
+
+For persistence on Render, attach a persistent disk to a plan that supports disks and set the `TASKS_FILE` environment variable to a path under the disk's mount directory, for example `/var/data/tasks.json` when the disk is mounted at `/var/data`. The store creates the file and its parent directory as needed. Alternatively, use a managed database for data that needs reliable backups or multiple service instances. Deploying this project does not itself configure a disk or database.
 
 ## What you can do
 

@@ -11,8 +11,8 @@ async function startServer() {
   await store.initialize();
 
   const app = createApp(store);
-  app.listen(PORT, () => {
-    console.log(`SKYLEAX Task Manager is running at http://localhost:${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`SKYLEAX Task Manager is listening on 0.0.0.0:${PORT}`);
   });
 }
 
