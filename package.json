@@ -1,0 +1,21 @@
+{
+  "name": "skyleax-task-manager",
+  "version": "1.0.0",
+  "description": "A beginner-friendly Task Manager REST API built with Node.js and Express.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "express",
+    "rest-api",
+    "task-manager",
+    "skyleax"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
